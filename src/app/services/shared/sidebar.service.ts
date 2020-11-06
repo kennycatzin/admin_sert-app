@@ -10,7 +10,7 @@ export class SidebarService {
       icono: 'mdi mdi-book-open',
       submenu: [
         { titulo: 'Empresas', url: '/' },
-        { titulo: 'Bancos', url: 'progress' },
+        { titulo: 'Bancos', url: 'bancos' },
         { titulo: 'Conceptos', url: 'grafica1' },
         { titulo: 'Ivas', url: 'grafica1' },
       ]

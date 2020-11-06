@@ -25,6 +25,7 @@ import { RecetasComponent } from './recetas/recetas.component';
 import { MovtosCuentasComponent } from './procesos/movtos-cuentas/movtos-cuentas.component';
 
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { BancosComponent } from './bancos/bancos.component';
 
 
 
@@ -43,6 +44,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     SesionesComponent,
     RecetasComponent,
     MovtosCuentasComponent,
+    BancosComponent,
 
   ],
   imports: [

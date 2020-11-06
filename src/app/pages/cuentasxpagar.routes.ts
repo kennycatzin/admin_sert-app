@@ -10,6 +10,7 @@ import { SesionesComponent } from './pasiente/sesiones/sesiones.component';
 import { LoginGuardGuard } from './../services/service.index';
 import { RecetasComponent } from './recetas/recetas.component';
 import { MovtosCuentasComponent } from './procesos/movtos-cuentas/movtos-cuentas.component';
+import { BancosComponent } from './bancos/bancos.component';
 const cuentasRoutes: Routes = [
     {
         path: '',
@@ -17,6 +18,7 @@ const cuentasRoutes: Routes = [
         // canActivate: [ LoginGuardGuard ],
         children: [
             { path: 'movtos-cuentas', component: MovtosCuentasComponent },
+            { path: 'bancos', component: BancosComponent },
             { path: 'paciente/perfil/:id', component: PerfilComponent },
             { path: 'paciente/perfil/sesion/:id/:paciente_id', component: SesionesComponent },
 
