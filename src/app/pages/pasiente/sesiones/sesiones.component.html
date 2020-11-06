@@ -1,0 +1,540 @@
+<div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+        <h3 class="text-themecolor">Módulo de sesión</h3>
+    </div>
+    <div class="col-md-7 align-self-center">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a [routerLink]="['/pasiente']">Pacientes</a></li>
+            <li class="breadcrumb-item"><a [routerLink]="['/paciente/perfil/', this.pacienteID]">Perfil</a></li>
+            <li class="breadcrumb-item active">Sesión</li>
+        </ol>
+    </div>
+</div>
+
+<div class="col-lg-12">
+    <div class="card">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs profile-tab" role="tablist">
+            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#historial" role="tab">Historial clínico</a> </li>
+            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#gastoC" role="tab">Gasto calórico</a> </li>
+            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#diet" role="tab">Dieta</a> </li>
+            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#entrena" role="tab">Entrenamiento</a> </li>
+        </ul>
+        <!-- Tab panes -->
+        <!-- <form #f="ngForm" ngNativeValidate (ngSubmit)="guardarCatalogo(f)"> -->
+        <div class="tab-content">
+            <div class="tab-pane active" id="historial" role="tabpanel">
+                <div class="card-body">
+
+                    <div class="modal-body">
+                        <h3 class="box-title">Alimentación</h3>
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="inputCity">Kg. Peso</label>
+                                <div class="input-group">
+                                    <input [(ngModel)]="kgpeso" #input (keyup)="busqueda( input.value )" name="kgpeso" type="number" class="form-control" placeholder="0" required>
+                                    <span class="input-group-addon" id="basic-addon2">KG</span>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-8">
+                                <label class="col-sm-12">Tipo de cuerpo</label>
+                                <select [(ngModel)]="sesion.tipo_cuerpo" value="{{sesion.tipo_cuerpo}}" class="form-control form-control-line">
+                                    <option>Ectomorfo</option>
+                                    <option>Mesomorfo</option>
+                                    <option>Endeformo</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-lg-2 col-md-3 col-sm-6">
+                                <label for="inputCity">Proteinas</label>
+                                <input [(ngModel)]="proteinas" value="" name="proteinas" type="number" class="form-control" placeholder="0" disabled>
+                            </div>
+                            <div class="form-group col-lg-2 col-md-3 col-sm-6">
+                                <label for="inputCity">Carbohidratos</label>
+                                <input [(ngModel)]="carbohidratos" value="" name="carbohidratos" type="number" class="form-control" placeholder="0" disabled>
+                            </div>
+                            <div class="form-group col-lg-2 col-md-3 col-sm-6">
+                                <label for="inputCity">Grasas</label>
+                                <input [(ngModel)]="grasas" value="" name="grasas" type="grasas" class="form-control" placeholder="0" disabled>
+                            </div>
+                            <div class="form-group col-lg-2 col-md-3 col-sm-6">
+                                <label for="inputCity">Fibras</label>
+                                <input [(ngModel)]="fibras" value="" name="fibras" type="fibras" class="form-control" placeholder="0" disabled>
+                            </div>
+                            <div class="form-group col-lg-2 col-md-3 col-sm-6">
+                                <label for="inputCity">Total Calorias</label>
+                                <input [(ngModel)]="totCal" value="" name="totCalorias" type="number" class="form-control" placeholder="0" disabled>
+                            </div>
+                            <div class="form-group col-lg-2 col-md-3 col-sm-6">
+                                <label for="inputCity">Agua</label>
+                                <input [(ngModel)]="ltsAgua" value="" name="agua" type="number" class="form-control" placeholder="0" disabled>
+                            </div>
+                        </div>
+                        <hr>
+                        <h3 class="box-title">Historial</h3>
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="inputCity">Grasa %</label>
+                                <div class="input-group">
+                                    <input [(ngModel)]="sesion.pctgrasa" name="pctGrasa" type="number" class="form-control" placeholder="0" required>
+                                    <span class="input-group-addon" id="basic-addon2">%</span>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="inputCity">IMC</label>
+                                <input [(ngModel)]="sesion.imc" name="cantidad" type="number" class="form-control" placeholder="0" required>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="inputCity">MM</label>
+                                <input [(ngModel)]="sesion.masa_muscular" name="cantidad" type="number" class="form-control" placeholder="0" required>
+                            </div>
+                        </div>
+                        <hr>
+                        <h3 class="box-title">Análisis clínico</h3>
+                        <div class="form-row">
+                            <div class="form-group col-lg-2 col-md-3 col-sm-6">
+                                <label for="inputCity">Colesterol</label>
+                                <input [(ngModel)]="anaClinico.colesterol" name="cantidad" type="number" class="form-control" placeholder="0" required>
+                            </div>
+                            <div class="form-group col-lg-2 col-md-3 col-sm-6">
+                                <label for="inputCity">Trigliceridos</label>
+                                <input [(ngModel)]="anaClinico.trigliceridos" name="cantidad" type="number" class="form-control" placeholder="0" required>
+                            </div>
+                            <div class="form-group col-lg-2 col-md-3 col-sm-6">
+                                <label for="inputCity">Glucosa</label>
+                                <input [(ngModel)]="anaClinico.glucosa" name="cantidad" type="number" class="form-control" placeholder="0" required>
+                            </div>
+                            <div class="form-group col-lg-3 col-md-3 col-sm-6">
+                                <label for="inputCity">Presión arterial</label>
+                                <input [(ngModel)]="anaClinico.presionarterial" name="cantidad" type="number" class="form-control" placeholder="0" required>
+                            </div>
+                            <div class="form-group col-lg-3 col-md-3 col-sm-6">
+                                <label for="inputCity">R. cardiaco %</label>
+                                <input [(ngModel)]="anaClinico.pctritmocardiaco" name="cantidad" type="number" class="form-control" placeholder="0" required>
+                            </div>
+
+                            <!-- <div class="col-12 row">
+                                    <div class="col-6 text-right">
+                                    </div>
+                                    <div class="col-6 text-right">
+                                        <button class="btn btn-secondary mr-3" data-toggle="tab" href="#historial" role="tab"><i class="fas fa-arrow-circle-left"></i> </button>
+                                        <button class="btn btn-primary" data-toggle="tab" href="#home" role="tab"> <i class="fas fa-arrow-circle-right "></i> </button>
+                                    </div>
+                                </div> -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane " id="gastoC" role="tabpanel ">
+                <div class="card-body ">
+                    <div class="form-row ">
+                        <div class="form-group col-lg-10 col-md-9 col-sm-8">
+                            <label for="inputCity ">Frecuencia cardiáca en reposo</label>
+                            <input [(ngModel)]="fCardiacaReposo" name="fCardiacaReposo " type="number " class="form-control " placeholder="0 " required>
+                        </div>
+                        <div class="form-group col-lg-2 col-md-3 col-sm-4">
+                            <label for="inputCity ">Calcular</label>
+                            <button (click)="calcular() " type="button " class="btn btn-info form-control text-white ">
+                                <i class="fas fa-plus-circle"></i>     
+                        </button>
+                        </div>
+                    </div>
+
+                    <div class="form-row ">
+                        <div class="form-group col-lg-3 col-md-6 col-sm-12">
+                            <label for="inputCity ">Horas de oficina</label>
+                            <div class="input-group">
+                                <input [(ngModel)]="hOficina" name="hOficina " type="number " class="form-control " placeholder="0 " required>
+                                <span class="input-group-addon" id="basic-addon2">Hrs</span>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-3 col-md-6 col-sm-12">
+                            <label for="inputCity ">Horas en movimiento</label>
+                            <div class="input-group">
+                                <input [(ngModel)]="hMovimiento" name="hMovimiento " type="number " class="form-control " placeholder="0 " required>
+                                <span class="input-group-addon" id="basic-addon2">Hrs</span>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-3 col-md-6 col-sm-12">
+                            <label for="inputCity ">Horas ejercicio</label>
+                            <div class="input-group">
+                                <input [(ngModel)]="hEjercicio" name="hEjercicio " type="number " class="form-control " placeholder="0 " required>
+                                <span class="input-group-addon" id="basic-addon2">Hrs</span>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-3 col-md-6 col-sm-12">
+                            <label for="inputCity ">Horas sueño</label>
+                            <div class="input-group">
+                                <input [(ngModel)]="hSueno" name="hSueno " type="number " class="form-control " placeholder="0 " required>
+                                <span class="input-group-addon" id="basic-addon2">Hrs</span>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row ">
+                        <!-- Column -->
+                        <div class="col-lg-4 col-sm-12">
+                            <div class="card ">
+                                <div class="box bg-info text-center ">
+                                    <h1 class="font-light text-white ">{{ this.sesion.metabolismo_basal }}</h1>
+                                    <h6 class="text-white ">Metabolismo Basal</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Column -->
+
+                        <!-- Column -->
+                        <div class="col-lg-4 col-sm-12">
+                            <div class="card ">
+                                <div class="box bg-success text-center ">
+                                    <h1 class="font-light text-white ">{{ this.sesion.gasto_calorico }}</h1>
+                                    <h6 class="text-white ">Gasto calórico total</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Column -->
+                        <div class="col-lg-4 col-sm-12">
+                            <div class="card ">
+                                <div class="box bg-dark text-center ">
+                                    <h1 class="font-light text-white ">{{ this.sesion.frecuencia_cardiaca }}</h1>
+                                    <h6 class="text-white ">Frecuencia cardiáca</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!--second tab-->
+            <div class="tab-pane " id="diet" role="tabpanel">
+                <div class="card-body">
+                    <div class="col-12 row">
+                        <div class="text-left col-lg-8 col-md-7 col-sm-12">
+                            <h3 class="box-title">Panel de dieta</h3>
+                        </div>
+                        <div class="text-right col-lg-4 col-md-5 col-sm-12">
+                            <button (click)="nuevo()" type="button" class="btn btn-success form-group" data-toggle="modal" data-target="#dieta">
+                                Agregar comida
+                                <i class="fas fa-utensils"></i>        
+                        </button>
+                        </div>
+                    </div>
+                    <div class="col-12 row">
+                        <!-- Items a por comida -->
+                        <div *ngFor="let comida of objetoComida; let i = index" class="col-lg-4 col-md-6 col-sm-12 card align-items-start">
+                            <div class="card-body text-left col-12">
+                                <div class="row">
+                                    <div class="col-lg-7 col-md-12 col-sm-12 align-self-center">
+                                        <h5 class="card-title">{{ comida.nombre }}</h5>
+                                        <h6 class="card-subtitle mb-2 text-muted">{{ comida.notas }}</h6>
+                                    </div>
+                                    <div class="col-lg-5 col-md-12 col-sm-12 text-lg-right text-sm-center text-md-left">
+                                        <button (click)="editarComida(comida, i)" class="btn btn-outline-warning" data-toggle="modal" data-target="#dieta"><i class="fas fa-edit"></i></button>
+                                        <button (click)="eliminarComida(comida, i)" class="btn btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                    </div>
+                                </div>
+                                <ul class="list-group">
+                                    <!-- Items por Alimento -->
+                                    <li *ngFor="let detalle of comida.det_comidas" class="list-group-item d-flex justify-content-between align-items-center">
+                                        {{ detalle.cantidad }} {{ detalle.unidad }} de {{ detalle.alimento }}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Observaciones</label>
+                        <textarea name="pasos" class="form-control rounded-0" id="exampleFormControlTextarea2" rows="6" required></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane " id="entrena" role="tabpanel">
+                <div class="card-body ">
+                    <div class="col-12 row">
+                        <div class="col-lg-6 col-sm-12 text-left">
+                            <h3 class="box-title">Panel de entrenamiento</h3>
+                        </div>
+                    </div>
+                    <div class="col-12 text-left">
+
+                        <div class="row">
+                            <div class="col-lg-11 col-md-9 col-sm-8">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Descripción</label>
+                                    <input [(ngModel)]="entrenamiento.notas" name="notas" type="text" class="form-control rounded-3">
+                                </div>
+                            </div>
+                            <div class="col-lg-1 col-md-3 col-sm-4 form-group">
+                                <label for="exampleInputEmail1">Agregar</label>
+                                <button (click)="addDia()" type="button" class="btn btn-success form-control text-white">
+                                    <i class="mdi mdi-dumbbell"></i>        
+                                </button>
+                            </div>
+                        </div>
+                        <br>
+                        <div *ngFor="let semana of diasSemana" class="form-check form-check-inline">
+                            <input (click)="checkea()" class="form-check-input" type="checkbox" id="{{semana.inl}}" [(ngModel)]="semana.check" [disabled]="semana.disab">
+                            <label class="form-check-label" for="{{semana.inl}}">{{semana.dia}}</label>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="col-lg-12 col-md-12 col-sm-12 row">
+                        <!-- Items a por comida -->
+                        <div *ngFor="let diasE of objEntrenamiento; let i = index" class="col-lg-12 col-md-12 col-sm-12 card align-items-start">
+                            <div class="card-body text-left col-12">
+                                <div class="row">
+                                    <div class="col-lg-10 col-md-7 col-sm-12 align-self-center">
+                                        <h4 class="card-title"> {{diasE.dias}} </h4>
+                                        <h5 class="card-subtitle mb-2 text-muted"> {{diasE.notas}} </h5>
+                                    </div>
+                                    <div class="col-lg-2 col-md-5 col-sm-12 text-left row justify-content-around">
+                                        <button (click)="addEntrenamiento(diasE, i)" class="btn btn-outline-success" data-toggle="modal" data-target="#entrenamiento"><i class="fas fa-plus-square"></i></button>
+                                        <button (click)="delEntrenamiento(diasE, i)" class="btn btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                    </div>
+                                </div>
+                                <ul *ngFor="let prog of diasE.programa; let i = index" class="list-group">
+                                    <!-- Items por Alimento -->
+                                    <li class="list-group-item list-group-item-action bg-light-info">
+                                        <div class="col-12 row">
+                                            <div class="col-lg-11 col-md-8 col-sm-12 text-left">
+                                                {{prog.nombre}}: ({{prog.vueltas}} x {{prog.repeticiones}}) - {{prog.descanso}} segundos de descanso
+                                            </div>
+                                            <div class="row justify-content-around col-lg-1 col-sm-12 col-md-4 text-lg-left text-md-left">
+                                                <a (click)="editarPrograma(prog, i)" data-toggle="modal" data-target="#entrenamiento"><i class="fas fa-edit text-warning"></i></a>
+                                                <a (click)="eliminarPrograma(prog, i)" class="ml-2"><i class="fas fa-trash text-danger"></i></a>
+
+                                                <!-- <button (click)="editarPrograma(prog, i)" class="btn btn-outline-warning" data-toggle="modal" data-target="#entrenamiento"><i class="fas fa-edit"></i></button>
+
+                                                <button (click)="eliminarPrograma(prog, i)" class="btn btn-outline-danger"><i class="fas fa-trash"></i></button> -->
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <ul class="list-group">
+                                        <!-- Items por Alimento -->
+                                        <li *ngFor="let detProg of prog.det_programa" class="list-group-item d-flex justify-content-between align-items-center">
+                                            {{detProg.ejercicio}}
+                                            <span class="badge badge-primary badge-pill">{{detProg.musculo}}</span>
+
+                                        </li>
+                                    </ul>
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Observaciones</label>
+                        <textarea name="pasos" class="form-control rounded-0" id="exampleFormControlTextarea2" rows="6" required></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer ">
+                <button (click)="guardarSesion()" type="submit " class="btn btn-info ">Guardar</button>
+            </div>
+        </div>
+        <!-- </form> -->
+    </div>
+</div>
+<div class="modal fade bd-example-modal-lg" id="dieta" tabindex="-1" role="dialog" aria-labelledby="dieta" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Dieta</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div *ngIf="messageSuccess" class="alert alert-success" role="alert">
+                    <a class="alert-link">Elemento agregado</a>. Continue agregando comidas
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-8">
+                        <input name="id" type="text" class="form-control" aria-describedby="emailHelp" placeholder="Ingrese la descripción" hidden>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Nombre</label>
+                            <input [(ngModel)]="comida.nombre" name="comidaNombre" type="text" class="form-control" aria-describedby="emailHelp" placeholder="Ingrese la descripción" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputZip">Total calorías</label>
+                            <input [(ngModel)]="comida.calorias" name="calorias" type="number" class="form-control" placeholder="0" required disabled>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Observaciones</label>
+                            <textarea [(ngModel)]="comida.notas" name="notas" class="form-control rounded-0" id="exampleFormControlTextarea2" rows="8" required></textarea>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <label for="inputCity">Cantidad</label>
+                        <input [(ngModel)]="cantidad" name="cantidad" type="number" class="form-control" placeholder="0" required>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="inputCity">Unidad</label>
+                        <select [(ngModel)]="idUnidad" name="idUnidad" class="form-control">
+                                <option value="">SELECCIONE</option>
+                                <option *ngFor="let unidad of misUnidades" [value]="unidad.id">
+                                    {{unidad.nombre}}
+                                </option>
+                            </select>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="inputCity">Tipo alimento</label>
+                        <select (change)="onSelectChange($event.target.value)" class="form-control">
+                                <option value="">SELECCIONE</option>
+                                <option *ngFor="let tipo of misTiposAlimentos" [value]="tipo.id">
+                                    {{tipo.nombre}}
+                                </option>
+                            </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="inputCity">Alimento</label>
+                        <select [(ngModel)]="idAlimento" name="idAlimento" class="form-control">
+                            <option value="">SELECCIONE</option>
+                            <option *ngFor="let alimento of misAlimentos" [value]="alimento.id">
+                                {{alimento.nombre}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-1">
+                        <button (click)="agregarAlimento()" type="button" class="btn btn-primary mt-lg-4">
+                                <i class="fas fa-plus-circle"></i>        
+                        </button>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table color-table success-table">
+                        <thead>
+                            <tr>
+                                <th>Cantidad</th>
+                                <th>Unidad</th>
+                                <th>Alimento</th>
+                                <th>Calorias</th>
+                                <th>Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let obj of objetoDetalle; let i = index">
+                                <td>{{obj.cantidad}}</td>
+                                <td>{{obj.unidad}}</td>
+                                <td>{{obj.alimento}}</td>
+                                <td>{{obj.calorias}}</td>
+                                <td class="text-center"><a (click)="borrarObjeto(obj, i)"><i class="fas fa-trash-alt text-danger"></i></a> </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button (click)="agregarComida()" type="submit" class="btn btn-info">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bd-example-modal-lg" id="entrenamiento" tabindex="-1" role="dialog" aria-labelledby="entrenamiento" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Entrenamiento</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div *ngIf="messageSuccess2" class="alert alert-success" role="alert">
+                    <a class="alert-link">Elemento agregado</a>. Continue agregando ejercicios.
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-8">
+                        <input name="id" type="text" class="form-control" aria-describedby="emailHelp" placeholder="Ingrese la descripción" hidden>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Nombre</label>
+                            <input [(ngModel)]="programa.nombre" name="nombre" type="text" class="form-control" aria-describedby="emailHelp" placeholder="Ingrese la descripción" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="inputCity">Repeticiones</label>
+                                <input [(ngModel)]="programa.repeticiones" name="repeticiones" type="number" class="form-control" placeholder="0" required>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="inputState">Vueltas</label>
+                                <input [(ngModel)]="programa.vueltas" name="vueltas" type="number" class="form-control" placeholder="0" required>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="inputZip">Descanso</label>
+                                <div class="input-group">
+                                    <input [(ngModel)]="programa.descanso" name="descanso" type="number" class="form-control" placeholder="Segundos" required>
+                                    <span class="input-group-addon" id="basic-addon2">Seg</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Observaciones</label>
+                            <textarea [(ngModel)]="programa.notas" name="notas" class="form-control rounded-0" id="exampleFormControlTextarea2" rows="6" required></textarea>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="form-row">
+                    <div class="form-group col-md-5">
+                        <label for="inputCity">Mùsculo</label>
+                        <select (change)="onSelectChangeMusculo($event.target.value)" name="idUnidad" class="form-control">
+                            <option value="">SELECCIONE</option>
+                            <option *ngFor="let musculo of misTiposEjercicios" [value]="musculo.id">
+                                {{musculo.nombre}}
+                            </option>
+                        </select> </div>
+                    <div class="form-group col-md-5">
+                        <label for="inputCity">Ejercicio</label>
+                        <select (change)="onSelectChangeEjercicio($event.target.value)" name="idUnidad" class="form-control">
+                                <option value="">SELECCIONE</option>
+                                <option *ngFor="let ejercicio of misEjercicios" [value]="ejercicio.id">
+                                    {{ejercicio.nombre}}
+                                </option>
+                            </select>
+                    </div>
+                    <div class="form-group col-md-2 align-self-end">
+                        <button (click)="agregarEjercicio()" type="button" class="btn btn-primary mt-lg-4 ml-4">
+                                <i class="fas fa-plus-circle"></i>        
+                            </button>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table color-table success-table">
+                        <thead>
+                            <tr>
+                                <th style=" width: 25%; ">Músculo</th>
+                                <th style=" width: 55%; ">Ejercio</th>
+                                <th>Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let obj of objDetPrograma; let i = index">
+                                <td>{{obj.musculo}}</td>
+                                <td>{{obj.ejercicio}}</td>
+                                <td class="text-center"><a (click)="borrarDetPrograma(obj, i)"><i class="fas fa-trash-alt text-danger"></i></a> </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button (click)="reiniciaEditar()" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button (click)="agregarPrograma()" type="submit" class="btn btn-info">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
